@@ -75,6 +75,8 @@ public class TarefaController {
     @Operation(summary = "Busca lista de tarefas por usuario", description = "Busca tarefas por usuario")
     @ApiResponse(responseCode = "200", description = "Tarefas encontradas com sucesso")
     @ApiResponse(responseCode = "500", description = "Erro de servidor")
+    @ApiResponse(responseCode = "403", description = "Email não encontrado! ")
+    @ApiResponse(responseCode = "401", description = "Token JWT ausente ou inválido")
     public ResponseEntity<List<TarefasDTOResponse>> buscaListaDeTarefasPorEmail(
             @RequestHeader(name = "Authorization", required = false) String token){
 
@@ -86,6 +88,8 @@ public class TarefaController {
     @Operation(summary = "Deleta tarefas por Id", description = "Deleta tarefas por id")
     @ApiResponse(responseCode = "200", description = "Tarefas deletadas")
     @ApiResponse(responseCode = "500", description = "Erro de servidor")
+    @ApiResponse(responseCode = "403", description = "Tarefa id não encontrada! ")
+    @ApiResponse(responseCode = "401", description = "Token JWT ausente ou inválido")
     public ResponseEntity<Void> deletarTarefaPorId(@RequestParam("id") String id, @RequestHeader(name = "Authorization", required = false) String token){
         tarefaService.deletarTarefaPorId(id, token);
         return ResponseEntity.ok().build();
@@ -96,6 +100,8 @@ public class TarefaController {
     @Operation(summary = "Altera status da tarefa por Id", description = "Altera status da tarefa cadastrada")
     @ApiResponse(responseCode = "200", description = "Status alterado com sucesso")
     @ApiResponse(responseCode = "500", description = "Erro de servidor")
+    @ApiResponse(responseCode = "403", description = "Tarefa id não encontrada! ")
+    @ApiResponse(responseCode = "401", description = "Token JWT ausente ou inválido")
     public ResponseEntity<TarefasDTOResponse> alteraStatusNotificacao(@RequestParam("status") StatusNotificacaoEnum status,
                                                                       @RequestParam("id") String id,
                                                                       @RequestHeader(name = "Authorization", required = false) String token){
@@ -107,6 +113,8 @@ public class TarefaController {
     @Operation(summary = "Atualiza dados da tarefa por id", description = "Atualiza dados da tarefa")
     @ApiResponse(responseCode = "200", description = "Tarefa atualizada com sucesso")
     @ApiResponse(responseCode = "500", description = "Erro de servidor")
+    @ApiResponse(responseCode = "403", description = "Tarefa id não encontrada! ")
+    @ApiResponse(responseCode = "401", description = "Token JWT ausente ou inválido")
     public ResponseEntity<TarefasDTORequest> updateTarefas(@RequestBody TarefasDTORequest tarefasDTO,
                                                             @RequestParam("id") String id,
                                                             @RequestHeader(name = "Authorization", required = false) String token){
