@@ -1,9 +1,6 @@
 package com.javanauta.bff_agendador_tarefas.controller;
 
-import com.javanauta.bff_agendador_tarefas.infrastructure.exceptions.ConflictException;
-import com.javanauta.bff_agendador_tarefas.infrastructure.exceptions.EmailJaCadastradoException;
-import com.javanauta.bff_agendador_tarefas.infrastructure.exceptions.ResourceNotFoundException;
-import com.javanauta.bff_agendador_tarefas.infrastructure.exceptions.UnauthorizedException;
+import com.javanauta.bff_agendador_tarefas.infrastructure.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
