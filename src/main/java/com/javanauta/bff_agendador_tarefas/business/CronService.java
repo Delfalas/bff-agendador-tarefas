@@ -30,22 +30,41 @@ public class CronService {
     //Buscar tarefas na próxima hora com intervalo de 5 minutos
     @Scheduled(cron = "${cron.horario}")
     public void buscaTarefasProximaHora() {
-        String token = login(converterParaRequestDTO());
+        try {
+            String token = login(converterParaRequestDTO());
 
-        log.info("Iniciada a busca de tarefas ");
-        LocalDateTime horaFutura = LocalDateTime.now().plusHours(1);
-        LocalDateTime horaFuturaMaisCinco = LocalDateTime.now().plusHours(1).plusMinutes(5);
+            log.info("TOKEN GERADO: {}", token);
 
-        List<TarefasDTOResponse> listaTarefas = tarefaService.buscarTarefasAgendadasPorPeriodo(
-                horaFutura, horaFuturaMaisCinco, token);
-        log.info("Tarefas encontradas: {}", listaTarefas);
+            log.info("Iniciada a busca de tarefas ");
 
-        listaTarefas.forEach(tarefa -> {
-            emailService.enviarEmail(tarefa);
-            log.info("Email enviado para o usuário " + tarefa.getEmailUsuario());
-            tarefaService.alterarStatus(StatusNotificacaoEnum.NOTIFICADO, tarefa.getId(), token);
-        });
-        log.info("Finalizada a busca e notificação de tarefa");
+            LocalDateTime horaFutura = LocalDateTime.now().plusHours(1);
+            LocalDateTime horaFuturaMaisCinco = LocalDateTime.now().plusHours(1).plusMinutes(5);
+
+            List<TarefasDTOResponse> listaTarefas =
+                    tarefaService.buscarTarefasAgendadasPorPeriodo(
+                            horaFutura, horaFuturaMaisCinco, token);
+
+            if (listaTarefas.isEmpty()) {
+                log.info("Nenhuma tarefa encontrada para o período.");
+                return;
+            }
+            log.info("Tarefas encontradas " + listaTarefas);
+
+            listaTarefas.forEach(tarefa -> {
+                emailService.enviarEmail(tarefa);
+                log.info("Email enviado para o usuário {}", tarefa.getEmailUsuario());
+                tarefaService.alterarStatus(
+                        StatusNotificacaoEnum.NOTIFICADO,
+                        tarefa.getId(),
+                        token
+                );
+            });
+
+            log.info("Finalizada a busca e notificação de tarefa");
+
+        } catch (Exception e) {
+            log.error("Erro ao executar rotina do cron: ", e);
+        }
     }
 
     //fazer login para agendar no Cron

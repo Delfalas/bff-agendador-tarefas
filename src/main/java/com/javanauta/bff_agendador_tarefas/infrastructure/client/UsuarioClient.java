@@ -15,7 +15,7 @@ import java.util.List;
 @FeignClient(name = "usuario", url = "${usuario.url}")
 public interface UsuarioClient {
 
-    @GetMapping("/usuario")
+    @GetMapping("/email")
     UsuarioDTOResponse buscaUsuarioPorEmail(@RequestParam("email") String email,
                                             @RequestHeader("Authorization") String token);
 

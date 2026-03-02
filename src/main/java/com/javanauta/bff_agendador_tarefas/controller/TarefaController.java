@@ -29,7 +29,7 @@ public class TarefaController {
     // 🔹 Cadastro unitário
     @PostMapping
     @Operation(summary = "Salva tarefas de usuário", description = "Cria e salva uma nova tarefa de usuário")
-    @ApiResponse(responseCode = "200", description = "Usuário salvo com sucesso")
+    @ApiResponse(responseCode = "200", description = "Tarefa salva com sucesso")
     @ApiResponse(responseCode = "500", description = "Erro de servidor")
     public ResponseEntity<TarefasDTORequest> salvarTarefas(
             @RequestHeader(name = "Authorization", required = false) String token,
