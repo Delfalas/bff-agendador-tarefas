@@ -9,17 +9,20 @@ import com.javanauta.bff_agendador_tarefas.business.dto.out.TelefoneDTOResponse;
 import com.javanauta.bff_agendador_tarefas.business.dto.out.UsuarioDTOResponse;
 import com.javanauta.bff_agendador_tarefas.infrastructure.client.UsuarioClient;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UsuarioService {
 
     private final UsuarioClient client;
 
     public UsuarioDTOResponse salvaUsuario(UsuarioDTORequest usuarioDTO) {
+        log.info("Usuario recebido no BFF: {}", usuarioDTO);
         return client.salvarUsuario(usuarioDTO);
     }
 

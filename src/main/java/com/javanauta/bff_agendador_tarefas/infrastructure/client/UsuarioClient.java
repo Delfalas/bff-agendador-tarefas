@@ -15,67 +15,67 @@ import java.util.List;
 @FeignClient(name = "usuario", url = "${usuario.url}")
 public interface UsuarioClient {
 
-    @GetMapping("/email")
+    @GetMapping("/usuario/email")
     UsuarioDTOResponse buscaUsuarioPorEmail(@RequestParam("email") String email,
                                             @RequestHeader("Authorization") String token);
 
-    @PostMapping
+    @PostMapping("/usuario")
     UsuarioDTOResponse salvarUsuario(@RequestBody UsuarioDTORequest usuarioDTO);
 
-    @PostMapping("/login")
+    @PostMapping("/usuario/login")
     String login(@RequestBody LoginRequestDTO usuarioDTO);
 
-    @DeleteMapping("/{email}")
+    @DeleteMapping("/usuario/{email}")
     void deletaUsuarioPorEmail(@PathVariable String email,
                                @RequestHeader("Authorization") String token);
 
     //Atualiza os dados de usuario usando o Header do token do usuario(email)
-    @PutMapping
+    @PutMapping("/usuario")
     UsuarioDTOResponse atualizaDadosUsuario(@RequestBody UsuarioDTORequest usuarioDTO,
                                             @RequestHeader("Authorization") String token);
 
     //Atualiza os dados de Endereco usando o Header do token do usuario(email)
-    @PutMapping("/endereco")
+    @PutMapping("/usuario/endereco")
     EnderecoDTOResponse atualizaEndereco(@RequestBody EnderecoDTORequest enderecoDTO,
                                          @RequestParam("id") Long id,
                                          @RequestHeader("Authorization") String token);
 
     //Atualiza os dados de Telefone usando o Header do token do usuario(email)
-    @PutMapping("/telefone")
+    @PutMapping("/usuario/telefone")
     TelefoneDTOResponse atualizaTelefone(@RequestBody TelefoneDTORequest telefoneDTO,
                                          @RequestParam("id") Long id,
                                          @RequestHeader("Authorization") String token);
 
     //Cria e cadastra os dados de Endereco usando o Header do token do usuario(email)----------------------------------
-    @PostMapping("/endereco")
+    @PostMapping("/usuario/endereco")
     EnderecoDTOResponse cadastrarEndereco(@RequestBody EnderecoDTORequest enderecoDTO,
                                           @RequestHeader("Authorization") String token);
 
     //Cria e cadastra os dados de Telefone usando o Header do token do usuario(email)-----------------------------------
-    @PostMapping("/telefone")
+    @PostMapping("/usuario/telefone")
     TelefoneDTOResponse cadastrarTelefone(@RequestBody TelefoneDTORequest telefoneDTO,
                                           @RequestHeader("Authorization") String token);
 
     //Método para deletar telefone
-    @DeleteMapping("/telefone/{id}")
+    @DeleteMapping("/usuario/telefone/{id}")
     void deletarTelefone(
             @PathVariable Long id,
             @RequestHeader("Authorization") String token);
 
     //método para deletar endereco
-    @DeleteMapping("/endereco/{id}")
+    @DeleteMapping("/usuario/endereco/{id}")
     void deletarEndereco(
             @PathVariable Long id,
             @RequestHeader("Authorization") String token);
 
     //CADASTRAR TELEFONE EM LOTE
-    @PostMapping("/telefones/lote")
+    @PostMapping("/usuario/telefones/lote")
     List<TelefoneDTOResponse> cadastrarTelefones(
             @RequestHeader("Authorization") String token,
             @RequestBody List<TelefoneDTORequest> telefonesDTO);
 
     //CADASTRAR ENDEREÇO EM LOTE
-    @PostMapping("/enderecos/lote")
+    @PostMapping("/usuario/enderecos/lote")
     List<EnderecoDTOResponse> cadastrarEnderecos(
             @RequestHeader("Authorization") String token,
             @RequestBody List<EnderecoDTORequest> enderecosDTO);
