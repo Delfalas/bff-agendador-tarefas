@@ -1,6 +1,7 @@
 package com.javanauta.bff_agendador_tarefas.controller;
 
 import com.javanauta.bff_agendador_tarefas.infrastructure.exceptions.*;
+import com.javanauta.bff_agendador_tarefas.infrastructure.exceptions.IllegalArgumentException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -27,6 +28,13 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(EmailJaCadastradoException.class)
     public ResponseEntity<String> handleEmailJaCadastrado(EmailJaCadastradoException ex){
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex){
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(ex.getMessage());
     }
 
 }

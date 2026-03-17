@@ -7,6 +7,7 @@ import com.javanauta.bff_agendador_tarefas.business.dto.in.UsuarioDTORequest;
 import com.javanauta.bff_agendador_tarefas.business.dto.out.EnderecoDTOResponse;
 import com.javanauta.bff_agendador_tarefas.business.dto.out.TelefoneDTOResponse;
 import com.javanauta.bff_agendador_tarefas.business.dto.out.UsuarioDTOResponse;
+import com.javanauta.bff_agendador_tarefas.business.dto.out.ViaCepDTOResponse;
 import com.javanauta.bff_agendador_tarefas.infrastructure.client.UsuarioClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -81,6 +82,11 @@ public class UsuarioService {
     //CADASTRAR ENDEREÇO EM LOTE
     public List<EnderecoDTOResponse> cadastrarEnderecos(String token, List<EnderecoDTORequest> enderecosDTO) {
         return client.cadastrarEnderecos(token, enderecosDTO);
+    }
+
+    //GET DO ENDEREÇO COM VIA API CEP
+    public ViaCepDTOResponse buscarEnderecoCep(String cep) {
+        return client.buscarDadosCep(cep);
     }
 
 }
