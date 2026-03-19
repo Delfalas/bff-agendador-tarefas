@@ -8,15 +8,9 @@ Além disso, o projeto está **totalmente containerizado com Docker**, permitind
 
 ## 🧩 Papel na Arquitetura
 
-[ Frontend / Cliente ]
-          ↓
-        BFF
-          ↓
- ┌────────┼────────┐
- ↓        ↓        ↓
-Usuário  Tarefas  Notificação
-(SQL)   (MongoDB)   (Email)
-
+<img width="373" height="202" alt="image" src="https://github.com/user-attachments/assets/f8d51e3f-1ff3-4bb0-9d19-2ce17cc775ac" />
+<br>
+<br>
 O BFF atua como uma **camada intermediária**, responsável por:
 
 * 🔗 Orquestrar múltiplos microsserviços
